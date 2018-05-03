@@ -1,28 +1,21 @@
 # This is the pam_radius_auth module for Puppet.
 # Based on the original written by Roger Ignazio <rignazio at gmail dot com>
+# and modifications by Cegeka.
 #
-# Configuration:
-# $pam_radius_servers, $pam_radius_secret, and $pam_radius_timeout should
-# be modified for your environment. The 'redhat-lsb' package will be installed
-# to determine the OS major release.
-#
-# Compatibility:
-# This module should also handle newer (or older) EL releases, or other distros,
-# with slight modification (eg. putting the pam_radius_auth config in your
-# system's relevant PAM file(s)). See GitHub or the README for more information.
+# @param pam_radius_servers Array[String] List of RADIUS servers to configure PAM for
+# @param pam_radius_secret String Secret shared between radius servers and client
+# @param pam_radius_timeout Integer Timeout (in seconds) for PAM RADIUS authentication.
 #
 class pam_radius_auth (
-  $ensure                   = present,
-  $pam_radius_servers       = undef,
-  $pam_radius_secret        = undef,
-  $pam_radius_timeout       = undef,
-  $pam_radius_enforce       = 'permissive',
-  $pam_radius_users_file    = 'pam_admin_users.conf',
-  $pam_radius_admin_users   = [''],
-  $pam_radius_admins_group  = 'admins'
+  Enum['present', 'absent'] $ensure                       = present,
+  Array[String] $pam_radius_servers                       = undef,
+  Pattern[/[~+._0-9a-zA-Z:-]+/] $pam_radius_secret        = undef,
+  Integer $pam_radius_timeout                             = undef,
+  Enum['permissive', 'strict'] $pam_radius_enforce        = 'permissive',
+  $pam_radius_users_file                                  = 'pam_admin_users.conf',
+  $pam_radius_admin_users                                 = [''],
+  $pam_radius_admins_group                                = 'admins'
 ) {
-
-  include stdlib
 
   $pam_radius_servers_real  = $pam_radius_servers
   $pam_radius_secret_real   = $pam_radius_secret
@@ -30,15 +23,6 @@ class pam_radius_auth (
   $pam_radius_enforce_real  = $pam_radius_enforce
   $pam_radius_users_file_real = $pam_radius_users_file
   $pam_radius_admins_group_real = $pam_radius_admins_group
-
-  validate_array($pam_radius_servers_real)
-  validate_re($pam_radius_secret_real, '^[~+._0-9a-zA-Z:-]+$')
-
-  if ! is_integer($pam_radius_timeout_real) {
-    fail("Pam_radius_auth[${name}]: pam_radius_timeout_real must be an integer")
-  }
-
-  validate_re($pam_radius_enforce_real, '^permissive$|^strict$')
 
   # Distribution check
   case $::operatingsystem {
