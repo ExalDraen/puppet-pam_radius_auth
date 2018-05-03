@@ -1,0 +1,48 @@
+{
+  "name": "exaldraen-pam_radius_auth",
+  "version": "0.1.0",
+  "author": "Alexander Hermes",
+  "summary": "Configure Linux pluggable authentication modules (PAM) for RADIUS authentication",
+  "license": "MIT",
+  "source": "https://github.com/ExalDraen/puppet-pam_radius_auth",
+  "dependencies": [
+
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+          "7",
+          "6"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+          "7",
+          "6"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "pdk-version": "1.4.1",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.4.1-0-g52adbbb"
+}

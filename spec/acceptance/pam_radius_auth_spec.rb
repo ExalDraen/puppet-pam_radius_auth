@@ -1,9 +1,8 @@
 require 'spec_helper_acceptance'
 
 describe 'pam_radius_auth::init' do
-
   describe 'running puppet code' do
-    it 'should work with no errors' do
+    it 'works with no errors' do
       pp = <<-EOS
 
         include 'yum'
@@ -23,18 +22,18 @@ describe 'pam_radius_auth::init' do
       EOS
 
       # Run it twice and test for idempotency
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+      apply_manifest(pp, catch_failures: true)
+      apply_manifest(pp, catch_changes: true)
     end
 
     describe file '/etc/pam_radius.conf' do
       it { is_expected.to be_file }
-      its(:content) { should match /somese0cret/ }
-      its(:content) { should match /127.0.0.1/ }
+      its(:content) { is_expected.to match %r{somese0cret} }
+      its(:content) { is_expected.to match %r{127.0.0.1} }
     end
     describe file '/etc/pam_admin_users.conf' do
       it { is_expected.to be_file }
-      its(:content) { should match /johndoe/ }
+      its(:content) { is_expected.to match %r{johndoe} }
     end
   end
 end
