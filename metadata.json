@@ -1,6 +1,6 @@
 {
   "name": "exaldraen-pam_radius_auth",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "author": "Alexander Hermes",
   "summary": "Configure Linux pluggable authentication modules (PAM) for RADIUS authentication",
   "license": "MIT",
