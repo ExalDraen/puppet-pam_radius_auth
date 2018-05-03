@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ExalDraen/puppet-pam_radius_auth.svg?branch=master)](https://travis-ci.org/ExalDraen/puppet-pam_radius_auth)
+
 # pam\_radius\_auth
 
 Configures `sshd` and `sudo` PAM modules to use RADIUS for authentication.
